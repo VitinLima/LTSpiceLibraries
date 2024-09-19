@@ -1,0 +1,18 @@
+Version 4
+SymbolType BLOCK
+RECTANGLE Normal -48 -40 48 40
+TEXT -8 -31 Left 0 DLatch
+WINDOW 0 0 -40 Bottom 2
+SYMATTR SpiceLine Vcc = 5V
+PIN -48 -16 LEFT 8
+PINATTR PinName D
+PINATTR SpiceOrder 1
+PIN -48 16 LEFT 8
+PINATTR PinName EN
+PINATTR SpiceOrder 2
+PIN 48 -16 RIGHT 8
+PINATTR PinName Q
+PINATTR SpiceOrder 3
+PIN 48 16 RIGHT 8
+PINATTR PinName QB
+PINATTR SpiceOrder 4
