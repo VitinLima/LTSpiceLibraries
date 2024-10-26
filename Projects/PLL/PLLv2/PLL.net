@@ -1,0 +1,87 @@
+* Z:\mnt\Data\Workbench\LTSpice\Projects\PLL\PLL_V2\PLL.asc
+XU3 0 VcoIn2 VcoOut2 Vcc CV2 VcoIn2 NC_01 Vcc NE555
+R7 N015 XORout 10k
+C3 0 N015 10n
+XU5 N014 N011 Vcc 0 CV2 NC_02 NC_03 LT1008
+R8 CV2 N011 1k
+R9 N011 SignalOut 10k
+R10 N014 Vcc 5k
+R11 0 N014 5k
+XU6 N015 LowPassOut Vcc 0 LowPassOut NC_04 NC_05 LT1008
+Vpower Vcc 0 5 Rser=10
+XU8 N005 N001 Vcc 0 N002 NC_06 NC_07 LT1008
+XU9 N005 N003 Vcc 0 VcoIn1 NC_08 NC_09 LT1008
+R20 N005 Vcc 5k
+R21 0 N005 5k
+R22 N003 N002 5k
+R23 VcoIn1 N003 5k
+R24 N001 VcoOut1 10k
+C4 N002 N001 10n
+XU10 0 VcoIn1 VcoOut1 Vcc CV1 VcoIn1 NC_10 Vcc NE555
+XU11 N006 N004 Vcc 0 CV1 NC_11 NC_12 LT1008
+R25 CV1 N004 1k
+R26 N004 SignalIn 10k
+VsignalIn SignalIn N007 PULSE(0 1 2m 100u 100u 0.9m 2m 5)
+R27 N006 Vcc 5k
+R28 0 N006 5k
+XU1 N012 N008 Vcc 0 N009 NC_13 NC_14 LT1008
+XU2 N012 N010 Vcc 0 VcoIn2 NC_15 NC_16 LT1008
+R1 N012 Vcc 5k
+R2 0 N012 5k
+R3 N010 N009 5k
+R4 VcoIn2 N010 5k
+R5 N008 VcoOut2 10k
+C1 N009 N008 10n
+R32 Vcc N016 10k
+R33 N016 0 10k
+R34 N016 N013 10k
+XU13 N016 XORout Vcc 0 XORout NC_17 NC_18 LT1008
+XU12 N027 N021 Vcc 0 N022 NC_19 NC_20 LT1008
+R6 N021 LowPassOut 1k
+R29 N022 N021 1k
+R30 0 N027 5k
+R31 N027 Vcc 5k
+XU14 N027 N023 Vcc 0 N024 NC_21 NC_22 LT1008
+R35 N023 N022 1k
+R36 N024 N023 3k
+V1 NC_23 0 2
+R37 N030 N024 10k
+C2 0 N030 10n
+XU15 N030 SignalOut Vcc 0 SignalOut NC_24 NC_25 LT1008
+VsignalIn1 P001 P002 PULSE(0 1 17m 100u 100u 0.9m 1m 1)
+VsignalLow P002 0 2V
+VsignalIn2 N007 P003 PULSE(0 1 13m 100u 100u 0.9m 1m 1)
+VsignalIn3 P003 P001 PULSE(0 1 14m 100u 100u 0.9m 2m 1)
+Q1 N017 N019 N020 0 NPN
+Q2 N017 N018 N020 0 NPN
+Q3 N020 N025 0 0 NPN
+Q4 N025 N026 N028 0 NPN
+Q5 N028 N029 0 0 NPN
+R12 N029 VcoOut1 10k
+R13 N026 VcoOut2 10k
+R14 N018 VcoOut2 10k
+R15 N019 VcoOut1 10k
+R16 N017 Vcc 10k
+R17 N025 Vcc 10k
+XU4 N017 N013 Vcc 0 N013 NC_26 NC_27 LT1008
+.model NPN NPN
+.model PNP PNP
+.lib C:\users\vitinho\AppData\Local\LTspice\lib\cmp\standard.bjt
+.tran 20ms startup
+* VCOref
+* VCOfeedback
+* Low pass filter
+* Reference VCO frequency controller
+* Reference VCO frequency generator
+* Feedback VCO frequency generator
+* Buffer
+* Buffer
+* FeedbackVCO frequency controller
+* Voltage control
+* Gain
+* Buffer
+* Buffer
+.lib LTC.lib
+.lib NE555.sub
+.backanno
+.end

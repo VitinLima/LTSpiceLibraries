@@ -1,0 +1,105 @@
+* Z:\media\vitinho\Data\Workbench\LTSpice\Projects\PLL\PLLv3\pll4.asc
+R1 N007 XORout {Rf}
+C1 0 N007 {Cf}
+VsignalIn1 SignalIn N001 PULSE(0 0.5 {2*Ts} 100u 100u {0.9*Ts} {2*Ts} 5)
+VsignalIn2 P001 P002 PULSE(0 0.5 {17*Ts} 100u 100u {0.9*Ts} {1*Ts} 1)
+VsignalLow1 P002 0 0.25V
+VsignalIn3 N001 P003 PULSE(0 0.5 {13*Ts} 100u 100u {0.9*Ts} {1*Ts} 1)
+VsignalIn4 P003 P001 PULSE(0 0.5 {14*Ts} 100u 100u {0.9*Ts} {2*Ts} 1)
+XVCO1 SignalIn VcoOut1 NC_01 vco_comp params: fo={fo} k={k} Vcc={Vcc}
+XVCO2 SignalOut VcoOut2 NC_02 vco_comp params: fo={fo} k={k} Vcc={Vcc}
+XU1 N007 LowPassOut Vcc 0 LowPassOut level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+XU4 LowPassOut N006 Vcc 0 N006 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+XU5 N005 N004 Vcc 0 XORout level2 Avol=1Meg GBW=10Meg Slew={Sl} Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+XU6 N002 Ref2 Vcc 0 N003 level2 Avol=1Meg GBW=10Meg Slew={Sl} Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R9 N002 VcoOut1 {R}
+R10 N002 0 {R}
+R11 N004 N003 {R}
+R12 Vcc N004 {2*R}
+R13 N002 VcoOut2 {R}
+R14 N005 VcoOut1 {R}
+R15 N005 VcoOut2 {R}
+R16 0 N005 {R}
+R17 Vcc N005 {R}
+XU8 N014 SignalOut Vcc 0 SignalOut level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R20 N006 N014 {11*R}
+R21 N014 0 {R}
+V1 Vcc 0 {Vcc}
+R2 XORout N010 {Rf}
+C2 N010 N011 {Cf}
+XU2 Ref2 N010 Vcc 0 N011 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R3 Vcc Ref2 {R}
+R4 Ref2 0 {R}
+XU7 Ref2 N008 Vcc 0 N009 level2 Avol=1Meg GBW=10Meg Slew={Sl} Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R5 N008 LowPassOut {R}
+R6 N009 N008 {R}
+R7 N011 N012 {Rf/1000}
+C3 N012 N013 {Cf}
+XU9 Ref2 N012 Vcc 0 N013 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+
+* block symbol definitions
+.subckt vco_comp Vin A nA
+V1 Vcc 0 {Vcc}
+R1 Vcc N001 1k
+R2 N001 0 1k
+XU3 Ref2 Comparator Vcc 0 nA level2 Avol=1Meg GBW=10Meg Slew={Sl} Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+XU4 N004 N003 Vcc 0 Comparator level2 Avol=1Meg GBW=10Meg Slew={Sl} Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R9 A N004 {2*R}
+R13 nA N003 {2*R}
+R14 N003 Vcc {R}
+R15 Vcc N004 {R}
+V2 Vx Vin {Vin0}
+XU5 N001 Ref2 Vcc 0 Ref2 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+Q1 N005 N006 0 0 2N2222
+R3 Vcntrl N006 {Vcc*Ro/0.6/Coeff}
+C2 N006 0 {Co}
+R4 Vcc N005 {R}
+Q2 N008 N009 0 0 2N2222
+R5 Vcntrl N009 {Vcc*Ro/0.6/Coeff}
+C1 N009 0 {Co}
+R6 Vcc N008 {R}
+XU1 Ref2 N005 Vcc 0 I2 level2 Avol=1Meg GBW=10Meg Slew={Sl} Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+XU2 Ref2 N008 Vcc 0 I1 level2 Avol=1Meg GBW=10Meg Slew={Sl} Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+XU6 N002 Vcntrl Vcc 0 Vcntrl level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R8 Vcntrl Ref2 {R}
+R10 N002 Vx {1/Y1}
+R11 N002 Vcc {1/Y2}
+R12 0 N002 {1/(Y-Y1-Y2)}
+Q3 N009 N010 0 0 2N2222
+Q4 N006 N007 0 0 2N2222
+R16 N007 nA {R}
+R17 N010 A {R}
+R18 I2 N003 {R}
+R19 I1 N004 {R}
+XU7 Comparator Ref2 Vcc 0 A level2 Avol=1Meg GBW=10Meg Slew={Sl} Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+.param Co=To/10000 Ro=To/Co/(1+0.693147)/2 Rref=10k
+.param Vin=0
+.param To={1/fo} R=10k
+.param Coeff=1.9*100/104/1.00656 Coeff_k=5000/4000 kcorr=k*Coeff_k
+.param R2 = 1k Y2=1/R2 Y={2*Y2/(1 - kcorr*Vin0/fo)} Y1={Y*kcorr*Vcc/2/fo}
+.param Vin0=3
+.param Sl=500Meg
+.ends vco_comp
+
+.model NPN NPN
+.model PNP PNP
+.lib C:\users\vitinho\AppData\Local\LTspice\lib\cmp\standard.bjt
+.tran {20*Ts} startup uic
+* Low pass filter
+* Reference VCO frequency generator
+* Feedback VCO frequency generator
+* Buffer
+* Buffer
+.param fo=10k k=200 Vcc=12
+* XOR gate
+.param R=10k
+.param Cf=10n Rf=f3dB/Cf/fo
+* Buffer
+.param Sl=500Meg
+.param fs = 100 Ts=1/fs
+.param f3dB=fo/10
+* Integrator filter
+* Integrator filter
+.lib UniversalOpAmp2.lib
+.backanno
+.end
